@@ -1,2 +1,155 @@
-# myFirstApp
-Just a Respositery
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sunny Shoe Centre - Showcase eCommerce</title>
+    <style>
+        body { 
+            margin: 0; 
+            font-family: Arial, sans-serif; 
+            background: #f7f7f7; 
+        }
+        .header {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+            font-size: 2em;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .product-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .phone-number {
+            margin-top: 10px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 80%;
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .close {
+            float: right;
+            cursor: pointer;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        Sunny Shoe Centre
+    </div>
+
+    <div class="container">
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="shoe.jpg" alt="Shoe" class="product-image">
+                <h3>Formal Shoes</h3>
+                <input type="tel" class="phone-number" placeholder="Enter phone number" value="1234567890">
+            </div>
+            <div class="product-card">
+                <img src="slipper.jpg" alt="Slipper" class="product-image">
+                <h3>Slippers</h3>
+                <input type="tel" class="phone-number" placeholder="Enter phone number" value="1234567890">
+            </div>
+            <div class="product-card">
+                <img src="sports.jpg" alt="Sports Shoe" class="product-image">
+                <h3>Sports Shoes</h3>
+                <input type="tel" class="phone-number" placeholder="Enter phone number" value="1234567890">
+            </div>
+            <div class="product-card">
+                <img src="toy.jpg" alt="Toy" class="product-image">
+                <h3>Kids Shoes</h3>
+                <input type="tel" class="phone-number" placeholder="Enter phone number" value="1234567890">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="phoneModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Contact Information</h2>
+            <p>Phone Number: <span id="modalPhoneNumber"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // Get modal elements
+        const modal = document.getElementById('phoneModal');
+        const modalPhoneNumber = document.getElementById('modalPhoneNumber');
+        const closeBtn = document.getElementsByClassName('close')[0];
+
+        // Add click event to all product images
+        document.querySelectorAll('.product-image').forEach(image => {
+            image.addEventListener('click', function() {
+                const phoneInput = this.parentElement.querySelector('.phone-number');
+                modalPhoneNumber.textContent = phoneInput.value;
+                modal.style.display = "block";
+            });
+        });
+
+        // Close modal when clicking the close button
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Allow phone number editing
+        document.querySelectorAll('.phone-number').forEach(input => {
+            input.addEventListener('change', function() {
+                // You can add validation here if needed
+                if (!/^\d{10}$/.test(this.value)) {
+                    alert('Please enter a valid 10-digit phone number');
+                    this.value = '1234567890'; // Reset to default
+                }
+            });
+        });
+    </script>
+</body>
+</html>
